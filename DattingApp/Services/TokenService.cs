@@ -17,7 +17,7 @@ namespace DattingApp.Services
         private readonly SymmetricSecurityKey key;
         public TokenService(IConfiguration config)
         {
-            key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokemKey"]));
+            key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
 
         public string CreateToken(AppUser user)

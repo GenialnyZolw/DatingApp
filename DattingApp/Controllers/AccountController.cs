@@ -1,6 +1,7 @@
 ﻿using DattingApp.Data;
 using DattingApp.DTOs;
 using DattingApp.Entities;
+using DattingApp.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,14 +16,16 @@ namespace DattingApp.Controllers
     public class AccountController : BaseApiController
     {
         private readonly DataContext context;
+        private readonly ITokenService tokenService;
 
-        public AccountController(DataContext context)
+        public AccountController(DataContext context, ITokenService tokenService)
         {
             this.context = context;
+            this.tokenService = tokenService;
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<AppUser>> Register(RegisterDto register)
+        public async Task<ActionResult<UserDto>> Register(RegisterDto register)
         {
             if (await UserExists(register.UserName)) return BadRequest("User name is taken, change yours user name");
 
@@ -38,11 +41,15 @@ namespace DattingApp.Controllers
             context.Add(user);
             await context.SaveChangesAsync();
 
-            return user;
+            return new UserDto()
+            {
+                UserName = user.UserName,
+                Token = tokenService.CreateToken(user)
+            };
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<AppUser>> Login([FromBody] LoginDto login)
+        public async Task<ActionResult<UserDto>> Login([FromBody] LoginDto login)
         {
             var user = await context.Users.SingleOrDefaultAsync(x => x.UserName == login.UserName);
 
@@ -63,7 +70,11 @@ namespace DattingApp.Controllers
                 }
             }
 
-            return user;
+            return new UserDto()
+            {
+                UserName = user.UserName,
+                Token = tokenService.CreateToken(user)
+            };
         }
 
         private async Task<bool> UserExists(string userName)
