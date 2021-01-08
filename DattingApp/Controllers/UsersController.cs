@@ -10,9 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DattingApp.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : BaseApiController
     {
         private DataContext _context;
 
