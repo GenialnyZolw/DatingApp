@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DattingApp.Data;
 using DattingApp.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace DattingApp.Controllers
         }
         // GET: api/Users
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
             var users = await _context.Users.ToListAsync();
@@ -29,6 +31,7 @@ namespace DattingApp.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}", Name = "Get")]
+        [Authorize]
         public async Task<ActionResult<AppUser>> GetUser(int id)
         {
             return await _context.Users.FindAsync(id);
