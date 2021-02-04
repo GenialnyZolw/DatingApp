@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <div class="container">
       <a class="navbar-brand" href="#">Dating App</a>
-        <ul class="navbar-nav mr-auto" *ngIf="logginIn">
+        <ul class="navbar-nav mr-auto" *ngIf="currentUser$ | async">
           <li class="nav-item">
             <a class="nav-link" href="#">Maches</a>
           </li>
@@ -11,12 +11,9 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Messages</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" (click)= "logout()">Logout</a>
-          </li>
         </ul>
 
-        <div *ngIf="logginIn" class="btn-group" dropdown>
+        <div *ngIf="currentUser$ | async" class="btn-group" dropdown>
           <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
                   aria-controls="dropdown-basic">
             Welcome <span class="caret"></span>
@@ -29,7 +26,7 @@
         </div>
 
 
-        <form *ngIf="!logginIn" #loginForm= 'ngForm' class="form-inline mt-2 mt-md-0" (ngSubmit)= 'login()' autocomplete="off">
+        <form *ngIf="(currentUser$ | async) === null" #loginForm= 'ngForm' class="form-inline mt-2 mt-md-0" (ngSubmit)= 'login()' autocomplete="off">
           <input
           name="username"
           [(ngModel)] = "model.username"
