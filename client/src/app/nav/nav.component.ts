@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { error } from 'protractor';
 import { AccountService } from '../_services/account.service';
 import { User } from '../_models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -13,7 +14,7 @@ export class NavComponent implements OnInit {
   model: any = {}
   currentUser$ = new Observable<User>();
 
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService, private router: Router) { }
 
   ngOnInit(): void {
     this.currentUser$ = this.accountService.currentUser$;
@@ -21,7 +22,7 @@ export class NavComponent implements OnInit {
 
   login(){
   this.accountService.login(this.model).subscribe(response =>{
-      console.log(response);
+    this.router.navigateByUrl('/members')
     }, error => {
       console.log(error)
     });
@@ -30,5 +31,6 @@ export class NavComponent implements OnInit {
 
   logout(){
     this.accountService.logout();
+    this.router.navigateByUrl('/')
   }
 }
