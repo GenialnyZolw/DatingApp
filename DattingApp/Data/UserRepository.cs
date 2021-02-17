@@ -17,7 +17,7 @@ namespace DattingApp.Data
             this.context = context;
         }
 
-        public async Task<IEnumerable<AppUser>> GetUserAsync()
+        public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
             return await context.Users.ToListAsync();
         }

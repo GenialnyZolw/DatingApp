@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace DattingApp.Interfaces
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
         void Update(AppUser user);
 
         Task<bool> SaveAllAsync();
 
-        Task<IEnumerable<AppUser>> GetUserAsync();
+        Task<IEnumerable<AppUser>> GetUsersAsync();
 
-        Task<AppUser> GetUserByIdAsync();
+        Task<AppUser> GetUserByIdAsync(int id);
 
-        Task<AppUser> GetUserByUserNameAsync();
+        Task<AppUser> GetUserByUserNameAsync(string userName);
     }
 }

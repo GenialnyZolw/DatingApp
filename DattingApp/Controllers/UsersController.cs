@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DattingApp.Data;
 using DattingApp.Entities;
+using DattingApp.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,26 +15,26 @@ namespace DattingApp.Controllers
     [Authorize]
     public class UsersController : BaseApiController
     {
-        private DataContext _context;
+        private readonly IUserRepository userRepository;
 
-        public UsersController(DataContext context)
+        public UsersController(IUserRepository userRepository)
         {
-            _context = context;
+            this.userRepository = userRepository;
         }
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
-            var users = await _context.Users.ToListAsync();
+            var users = await userRepository.GetUsersAsync();
 
-            return users;
+            return Ok(users);
         }
 
         // GET: api/Users/5
-        [HttpGet("{id}", Name = "Get")]
-        public async Task<ActionResult<AppUser>> GetUser(int id)
+        [HttpGet("{username}", Name = "Get")]
+        public async Task<ActionResult<AppUser>> GetUser(string username)
         {
-            return await _context.Users.FindAsync(id);
+            return Ok(await userRepository.GetUserByUserNameAsync(username));
         }
 
         // POST: api/Users
