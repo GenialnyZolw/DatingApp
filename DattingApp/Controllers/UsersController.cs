@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DattingApp.Controllers
 {
+    [Authorize]
     public class UsersController : BaseApiController
     {
         private DataContext _context;
@@ -21,7 +22,6 @@ namespace DattingApp.Controllers
         }
         // GET: api/Users
         [HttpGet]
-        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
             var users = await _context.Users.ToListAsync();
@@ -31,7 +31,6 @@ namespace DattingApp.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}", Name = "Get")]
-        [Authorize]
         public async Task<ActionResult<AppUser>> GetUser(int id)
         {
             return await _context.Users.FindAsync(id);

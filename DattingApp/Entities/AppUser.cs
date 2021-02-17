@@ -18,7 +18,7 @@ namespace DattingApp.Entities
 
         public DateTime DateOfBirth { get; set; }
 
-        public string KnowsAs { get; set; }
+        public string KnownAs { get; set; }
 
         public DateTime Created { get; set; } = DateTime.Now;
 
@@ -34,7 +34,7 @@ namespace DattingApp.Entities
 
         public string City { get; set; }
 
-        public string Countery { get; set; }
+        public string Country { get; set; }
 
         public ICollection<Photo> Photos { get; set; }
 
