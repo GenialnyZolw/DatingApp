@@ -13,6 +13,8 @@ namespace DattingApp.DTOs
 
         public int Age { get; set; }
 
+        public string PhotosUrl { get; set; }
+
         public string KnownAs { get; set; }
 
         public DateTime Created { get; set; }
