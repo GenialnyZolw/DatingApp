@@ -19,7 +19,8 @@ namespace DattingApp.Data
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
-            return await context.Users.ToListAsync();
+            return await context.Users
+                .Include(x => x.Photos).ToListAsync();
         }
 
         public async Task<AppUser> GetUserByIdAsync(int id)
@@ -29,7 +30,8 @@ namespace DattingApp.Data
 
         public async Task<AppUser> GetUserByUserNameAsync(string userName)
         {
-            return await context.Users.SingleOrDefaultAsync(x => x.UserName == userName);
+            return await context.Users
+                .Include(x => x.Photos).SingleOrDefaultAsync(x => x.UserName == userName);
         }
 
         public async Task<bool> SaveAllAsync()
