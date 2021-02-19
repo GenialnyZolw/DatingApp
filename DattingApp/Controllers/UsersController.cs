@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using DattingApp.Data;
+using DattingApp.DTOs;
 using DattingApp.Entities;
 using DattingApp.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -16,25 +18,31 @@ namespace DattingApp.Controllers
     public class UsersController : BaseApiController
     {
         private readonly IUserRepository userRepository;
+        private readonly IMapper mapper;
 
-        public UsersController(IUserRepository userRepository)
+        public UsersController(IUserRepository userRepository, IMapper mapper)
         {
             this.userRepository = userRepository;
+            this.mapper = mapper;
         }
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
         {
             var users = await userRepository.GetUsersAsync();
 
-            return Ok(users);
+            var userToReturn = mapper.Map<IEnumerable<MemberDto>>(users);
+
+            return Ok(userToReturn);
         }
 
         // GET: api/Users/5
         [HttpGet("{username}", Name = "Get")]
-        public async Task<ActionResult<AppUser>> GetUser(string username)
+        public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
-            return Ok(await userRepository.GetUserByUserNameAsync(username));
+            var user = await userRepository.GetUserByUserNameAsync(username);
+
+            return mapper.Map<MemberDto>(user);
         }
 
         // POST: api/Users
