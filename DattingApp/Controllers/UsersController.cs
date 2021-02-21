@@ -29,20 +29,18 @@ namespace DattingApp.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
         {
-            var users = await userRepository.GetUsersAsync();
+            var users = await userRepository.GetMembersAsync();
 
-            var userToReturn = mapper.Map<IEnumerable<MemberDto>>(users);
-
-            return Ok(userToReturn);
+            return Ok(users);
         }
 
         // GET: api/Users/5
         [HttpGet("{username}", Name = "Get")]
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
-            var user = await userRepository.GetUserByUserNameAsync(username);
+            var user = await userRepository.GetMemberAsync(username);
 
-            return mapper.Map<MemberDto>(user);
+            return user;
         }
 
         // POST: api/Users

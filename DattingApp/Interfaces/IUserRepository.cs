@@ -1,4 +1,5 @@
-﻿using DattingApp.Entities;
+﻿using DattingApp.DTOs;
+using DattingApp.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,9 @@ namespace DattingApp.Interfaces
         Task<AppUser> GetUserByIdAsync(int id);
 
         Task<AppUser> GetUserByUserNameAsync(string userName);
+
+        Task<IEnumerable<MemberDto>> GetMembersAsync();
+
+        Task<MemberDto> GetMemberAsync(string userName);
     }
 }
