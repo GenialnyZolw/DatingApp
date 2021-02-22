@@ -1,3 +1,4 @@
+import { NotFoundComponent } from './error/not-found/not-found.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { MessagesComponent } from './messages/messages.component';
 import { ListsComponent } from './lists/lists.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
       {path: 'messages', component: MessagesComponent},
     ]
   },
+  {path: 'not-found', component: NotFoundComponent},
   {path: '**', component: HomeComponent}
 ];
 
