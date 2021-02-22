@@ -1,3 +1,4 @@
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { SharedModule } from './_modules/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -42,7 +43,8 @@ import { NotFoundComponent } from './error/not-found/not-found.component';
     SharedModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
