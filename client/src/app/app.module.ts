@@ -20,6 +20,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { ToastrModule } from 'ngx-toastr';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { NotFoundComponent } from './error/not-found/not-found.component';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { NotFoundComponent } from './error/not-found/not-found.component';
     ListsComponent,
     MessagesComponent,
     MemberCardComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    MemberEditComponent
   ],
   imports: [
     BrowserModule,
