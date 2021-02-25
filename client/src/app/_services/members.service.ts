@@ -1,8 +1,8 @@
+import { Member } from './../_models/member';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment.prod';
 import { Injectable } from '@angular/core';
-import { Member } from '../_models/member';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +18,9 @@ export class MembersService {
 
   getMember(username: string): Observable<Member>{
     return this.http.get<Member>(this.baseUrl + 'users/' + username);
+  }
+
+  updateMember(member: Member) {
+    return this.http.put(this.baseUrl + 'users', member);
   }
 }
